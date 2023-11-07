@@ -1,6 +1,6 @@
 const socketClient = io();
 
-const userNameHTML = document.getElementById("userNameHTML");
+const userNameHTML = document.getElementById("userNameI");
 const chatForm = document.getElementById("chatForm");
 const messageI = document.getElementById("message");
 const pChat = document.getElementById("pChat");
@@ -8,12 +8,12 @@ const pChat = document.getElementById("pChat");
 let userValue = null;
 if (!userValue) {
     Swal.fire({
-        title: "Bienvenido al chat de IO()",
+        title:"chat de IO",
         text: "user",
         input: "text",
         inputValidator: (value) => {
             if (!value) {
-                return "You must input your name";                
+                return "put your USerName";                
             }
           },
 
@@ -50,8 +50,7 @@ socketClient.on("bcast", (userValue) => {
       duration: 10000,
       position: "center",
       
-    }).showToast();
-  });
+    }).showToast();});
   
 
 

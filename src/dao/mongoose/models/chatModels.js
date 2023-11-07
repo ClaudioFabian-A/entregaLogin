@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const collection = "messages";
+// const collection = "messages";
 
 const schema = new mongoose.Schema(
 
@@ -16,5 +16,5 @@ const schema = new mongoose.Schema(
 
     }, { timestamps: true })
 
-    const chatModels = mongoose.model(collection, schema);
+    const chatModels = mongoose.model("messages", schema);
     export default chatModels;

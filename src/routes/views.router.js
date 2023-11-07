@@ -1,25 +1,41 @@
-import {Router} from "express";
+import { Router } from "express";
 import productManager from "../dao/mongoose/managers/productsManagers.js";
-import {__dirname} from "../utils.js";
+import cartsManager from "../dao/mongoose/managers/cartsManager.js";
+// import { __dirname } from "../utils.js";
 
-const  prodManager = new productManager();
-const router = Router();
+const prodManager = new productManager();
+const cartManager = new cartsManager();
+const viewsrouter = Router();
 
 
 
 
-router.get("/", async (req, res) => {
-    const prodList = await prodManager.getProducts();
-    res.render("home", { prodList });
-  });
-  
+viewsrouter.get("/", async (req, res) => {
+  const prodList = await prodManager.getProducts(req.query);
+  res.render("home", { prodList: prodList.payload });
+});
 
-router.get("/realTimeProducts", async (req, res) => {
-    const prodList = await prodManager.getProducts();
-    res.render("realTimeProducts", { prodList });
-  });
-  router.get("/chat", (req, res) => {
-    res.render("chat");
-  });
 
-export default router;
+
+viewsrouter.get("/realTimeProducts", async (req, res) => {
+  // const prodList = await prodManager.getProducts();
+  res.render("realTimeProducts");
+});
+
+
+viewsrouter.get("/chat", (req, res) => {
+  res.render("chat");
+});
+
+viewsrouter.get("/carts/:cid", async (req, res) => {
+  let cid = req.params.cid;
+  let cartList = await cartManager.getCartById(cid);
+  res.render("cart", { products: cartList[0].products });
+});
+viewsrouter.get("/products", async(req,res)=>{
+  let prodList= await prodManager.getProducts(req.query);
+  console.log(prodList);
+  res.render("arts",{product:prodList})
+})
+
+export default viewsrouter;

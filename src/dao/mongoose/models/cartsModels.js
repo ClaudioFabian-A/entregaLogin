@@ -1,19 +1,29 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import { productsModel } from "./productsModels.js";
+
 const collection = "carts";
 
 const prodSubSchema = new mongoose.Schema(
   {
-    product: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "products",
-    },
-    quantity: {
-      type: Number,
-      default: 1,
-    },
-  },
-  { _id: false }
-);
+    products: {
+      type: [{
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "products",
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+      }]
+    }
+  }, { _id: false });
+
+
+prodSubSchema.pre("save", function () {
+  this.populate("products.product")
+
+})
 
 const schema = new mongoose.Schema(
   {
@@ -25,6 +35,8 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const cartModel = mongoose.model(collection, schema);
+prodSubSchema.pre("find", function () { this.populate("products.product") })
 
-export default cartModel;
+export const cartModel = mongoose.model("carts", schema);
+
+
