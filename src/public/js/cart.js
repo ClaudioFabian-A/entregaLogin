@@ -11,7 +11,7 @@ window.onload = function () {
 };
  
 let counter = 0;
-let quantityCarts = document.getElementById("iAn");
+let quantityCarts = document.getElementById("numeroCarrito");
 
 async function itemsCarts(){
     let user = await JSON.parse(sessionStorage.getItem("cart"));
@@ -25,7 +25,7 @@ async function itemsCarts(){
     counter = artsList.length;
     }else{
         idCart =window.location.pathname.split("/")[2];
-        let idCartParams= await fetch(`/api/carts/${idCart}`,{method:'get',headers:{"content-Type":"application/json"}});
+        let idCartParams= await fetch(`/api/carts/${idCart}`,{method:'get',headers:{"content-Type":"application/json"},});
         let arts= await idCartParams.json();
         let artsList= await arts[0].products;
         counter = artsList.length;

@@ -31,6 +31,11 @@ function deleteArticle() {
 
 }
 
+function articleDeleted(idArt){
+    socket.emit("articleDeleted",idArt);
+}
+
+
 const prodForm = document.getElementById("idForm");
 prodForm.addEventListener("click", (elements) => {
     elements.preventDefault();
@@ -59,10 +64,6 @@ function submitHandlebars() {
     prodForm.reset();
 };
 
-function articleDeleted(idArt){
-    socket.emit("articleDeleted",idArt);
-}
-
 socket.on("prodList", (data) => {
     const containerBody = document.getElementById("containerBody");
     let products = "";
@@ -84,9 +85,9 @@ socket.on("prodList", (data) => {
     deleteArticle();
 });
 
-socket.on("prodList", (data) => {
-    const dataList = document.getElementById("container")
-});
+// socket.on("prodList", (data) => {
+//     const dataList = document.getElementById("container")
+// });
 
 
 // function deleteArticle(idArt) {

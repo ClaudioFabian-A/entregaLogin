@@ -1,46 +1,16 @@
-<div class="itemListProducts ajustes">
-  <div class="btn-group" role="group" aria-label="Basic outlined example">
-    <a href="?query=category:Chicken Giblets"><button
-        type="button"
-        class="a2"
-      >Chicken Giblets</button></a>
-    <a href="?query=category:Oil - Sesame"><button
-        type="button"
-        class="a2"
-      >Oil - Sesame</button></a>
-    <a href="?query=category:Beef Dry Aged Tenderloin Aaa"><button
-        type="button"
-        class="a2"
-      >Beef Dry Aged Tenderloin Aaa</button></a>
-    <a href="?query=category:1"><button
-        type="button"
-        class="a2"
-      >1</button></a>
-    
-    <a href="?sort=asc"><button
-        type="button"
-        class="a2"
-      >Ordenar ⬆️</button></a>
-    <a href="?sort=desc"><button
-        type="button"
-        class="a2"
-      >Ordenar ⬇️</button></a>
 
-  </div>
-
-</div>
 
 <div class="itemC ajustes">
 
-  {{#each product.payload}}
-     <div class="cardIt cardItAjust">
+  {{#each products.payload }}
+     <div class="cardIt cardItAjust" id="{{this.id}}">
             <h2>Articulo:{{this.title}}</h2>
             <h2>Descripción: {{this.description}}</h2>
             <h3>Precio: $ {{this.price}}</h3>
             <h3>codico: {{this._id}}</h3>
             <h3>Categoria: {{this.category}}</h3>
-            <img src={{this.thumbnail}} alt={{this.title}} class='imgP' />
-            <a href="#" class=" addButton" id={{this._id}}>Añadir al
+            <img src={{this.thumbnail}}   />
+            <a href="#" class=" addButton" id={{this._id}} onclick="addToCart('{{this.id}}')">Añadir al
             carrito</a>
         </div>
 
@@ -48,8 +18,8 @@
   {{/each}}
 
 </div>
-
-<nav aria-label="...">
+{{!-- class='imgP' --}}
+{{!-- <nav aria-label="...">
   <ul class="pagination">
     {{#if products.hasPrevPage}}
       <li class="boton2">
@@ -94,6 +64,7 @@
       </li>
     {{/if}}
 
-  </ul>
-</nav>
-<script src="/src/public/js/bannerCart.js"></script>
+  </ul> --}}
+{{!-- </nav> --}}
+{{!-- <script src="/js/bannerCart.js"></script> --}}
+<script src="/js/products.js"></script>

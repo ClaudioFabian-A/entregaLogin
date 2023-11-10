@@ -1,5 +1,4 @@
 import { productsModel } from '../models/productsModels.js';
-// import { v4 as uuidv4 } from 'uuid';
 
 class productManager {
     constructor() {
@@ -47,7 +46,7 @@ class productManager {
                 prevLink: prevLink,
                 nextLink: nextLink,
             };
-            // console.log( prodList );
+            // console.log( prodList.docs );
 
 
 
@@ -55,7 +54,9 @@ class productManager {
             console.log(`error en product manager 32`);
             return error
         }
+        console.log(prodList)
         return prodList;
+        
 
     };
     async updateProduct( id, title, description, category, price, thumbnail, code, stock) {
@@ -102,7 +103,7 @@ class productManager {
             let findCode = prodList().then((e) => e.map((art) => { let artE = ""; if (id != e._id) { artE = e.code } return artE }));
             let searchedCode = findCode.then((e) => e.includes(addArticle.code));
 
-            if (!undefinedValue || !emptyValue) { await productsModel.updateOne({ _id: id }, addArticle) } else if (await searchedCode) { console.log("error product manager H"); return "codeRepetido" } else { return "valorVacio"; console.log("error product manager I"); }
+            if (!undefinedValue || !emptyValue) { await productsModel.updateOne({ _id: id }, addArticle) } else if (await searchedCode) { console.log("error product manager H"); return "codeRepetido" } else { return "emptyvalue"; console.log("error product manager I"); }
 
         }
 
@@ -153,11 +154,11 @@ class productManager {
             await productsModel.create(addArticle);
             return true;
         } else if (await searchedCode) {
-            return "codeRepetido";
+            return "repeatvalue";
             console.log("product manager error E");
 
         } else {
-            return "valorVacio";
+            return "emptyvalues";
             console.log("product manager error F");
         }
     };

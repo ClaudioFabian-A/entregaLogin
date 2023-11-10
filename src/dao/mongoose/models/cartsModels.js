@@ -1,12 +1,12 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 import { productsModel } from "./productsModels.js";
+const carts= "carts";
 
-const collection = "carts";
 
-const prodSubSchema = new mongoose.Schema(
+const cardSubSchema = new mongoose.Schema(
   {
     products: {
-      type: [{
+      type: {
         product: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "products",
@@ -15,28 +15,23 @@ const prodSubSchema = new mongoose.Schema(
           type: Number,
           default: 1,
         },
-      }]
+      }
     }
-  }, { _id: false });
+  },{_id:false});
+  const cardschema= new mongoose.Schema({
+    products:{
+      type:[cardSubSchema],
+      default:[],
+    }
+  },{timestamps:true})
 
 
-prodSubSchema.pre("save", function () {
+cardSubSchema.pre(["save","findOne"], function () {
   this.populate("products.product")
 
-})
+});
 
-const schema = new mongoose.Schema(
-  {
-    products: {
-      type: [prodSubSchema],
-      default: [],
-    },
-  },
-  { timestamps: true }
-);
 
-prodSubSchema.pre("find", function () { this.populate("products.product") })
-
-export const cartModel = mongoose.model("carts", schema);
+ export const cartModel = mongoose.model("carts", cardSubSchema);
 
 
